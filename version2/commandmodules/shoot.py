@@ -2,7 +2,7 @@
 from random import randint
 
 command_to_trigger = "shoot"
-command_help = "Play a game of russian roulette. Will automatic reload upon hit."
+command_help = "Play a game of russian roulette. Will automatically reload upon hit."
 command_required_admin = False
 
 parentobj = None

@@ -29,7 +29,7 @@ The bio help page
             con = parentobj.getDBConnection()
             cur = con.cursor()
 
-            sqlquery = "SELECT id from slackbot_knownusers WHERE userid LIKE %s or username LIKE ?"
+            sqlquery = "SELECT id from slackbot_knownusers WHERE userid LIKE ? or username LIKE ?"
             data = (callfrom, callfrom)
 
             cur.execute(sqlquery, data)
