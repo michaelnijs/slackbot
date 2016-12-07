@@ -14,7 +14,7 @@ parentobj = None
 def initModule(parent):
     global parentobj
     parentobj = parent
-    print "Nothing to do"
+    
 
 def reload_news(feedid):
 
@@ -26,7 +26,7 @@ def reload_news(feedid):
 
     url = ""
 
-    print "Loading news for item: " + str(feedid)
+
     try:
         cur.execute(sqlquery, data)
         url = cur.fetchone()[0]
@@ -44,7 +44,7 @@ def reload_news(feedid):
         print "Not ok!!"
         return -1
 
-    print "We have entries"
+
 
 
     for i in range(len(d.entries)-1, 0, -1):
@@ -68,13 +68,13 @@ def reload_news(feedid):
             print "The news exists"
         except:
             # adding it
-            print "Adding news"
+
             sqlquery = "INSERT INTO slackbot_feed_content (title, feedid, description, link, publish_date) VALUES (?,?,?,?,?)"
             data = (news_title, feedid, news_description, news_link, news_publishdate)
             cur.execute(sqlquery, data)
             con.commit()
 
-    print "End of the loop"
+
     parentobj.closeDBConnection(con)
 
 def load_rss_feeds():
@@ -132,7 +132,7 @@ Help for the news module:
             cur.execute("SELECT Max(id) from slackbot_feeds")
             upper_bound = cur.fetchone()[0]
             for i in range(1, upper_bound):
-                print "Fetching " + str(i)
+
                 reload_news(i)
 
             response = "That took a while, do not do that too often"
@@ -167,14 +167,14 @@ Help for the news module:
         #try:
         id = int(parts[1])
         if isinstance(id, int) and id > 0:
-            print "fetching the news"
+
             sqlquery = "SELECT title, description, link, publish_date from slackbot_feed_content WHERE feedid = ? ORDER BY id ASC LIMIT 5"
             data = (id,)
             cur.execute(sqlquery, data)
-            print "SQL executed"
+
             for item in cur.fetchall():
-                print item
-                response = response + "*" + str(item[0]) + "* - " + str(item[3]) + "\n" + str(item[1] + "\n" + str(item[2])) + "\n"
+
+                response = response + "*" + item[0].encode('ascii','ignore') + "* - " + item[3].encode('ascii','ignore') + "\n" + item[1].encode('ascii','ignore') + "\n" + item[2].encode('ascii','ignore') + "\n"
         else:
             response = "You should read the help page more often"
         #except:
