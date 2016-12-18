@@ -79,7 +79,7 @@ def reload_news(feedid):
 
 def load_rss_feeds():
 
-    file_to_load = "security.opml"
+    file_to_load = BOT_OPML 
     outline = opml.parse(file_to_load)
 
     # upload the feed in the database, verify if the feed is still the same and update if needed.

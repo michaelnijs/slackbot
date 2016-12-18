@@ -9,12 +9,15 @@ import os
 import sqlite3
 import importlib
 
+import seccyconfig
 
-database = "slackbox.db"
+database = seccyconfig.database 
 
-BOT_ID = "<fetch it>"
-BOT_NAME = "seccy"
-SLACK_BOT_TOKEN = "<request it>"
+BOT_ID = seccyconfig.BOT_ID
+BOT_NAME = seccyconfig.BOT_NAME
+SLACK_BOT_TOKEN = seccyconfig.SLACK_BOT_TOKEN
+BOT_OPML = seccyconfig.BOT_OPML
+BOT_PATH = seccyconfig.BOT_PATH
 
 AT_BOT = "<@" + BOT_ID + ">"
 
@@ -92,7 +95,7 @@ def load_all_modules():
     # find all .py files
     # load them one at a time
     modules_to_load = []
-    for file in os.listdir(os.path.join(os.getcwd(), "commandmodules")):
+    for file in os.listdir(os.path.join(BOT_PATH, "commandmodules")):
         if file[-3:] == ".py" and file[:-3] != "__init__":
             try:
                 tempobj = importlib.import_module("commandmodules." + str(file[:-3]))
