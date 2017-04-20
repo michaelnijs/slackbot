@@ -316,11 +316,15 @@ if __name__ == "__main__":
         # load different modules
         load_all_modules()
 
+        counter=0
         while True:
             command, channel, callfrom = parse_slack_output(slack_client.rtm_read())
             if command and channel:
                 handle_command(command, channel, callfrom)
-            load_users()
+	    if counter % 10 == 0:
+               load_users()
+               counter = 0
             time.sleep (READ_WEBSOCKET_DELAY)
+            counter = counter + 1
     else:
         print "Something barfed"
